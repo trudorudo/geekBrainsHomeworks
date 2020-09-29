@@ -1,71 +1,59 @@
 package geekbrains.homeworks.homework1;
 
+import java.util.Arrays;
+
 public class Main {
 
     public static void main(String[] args) {
-        byte newByte = 100;
-        short newShort = 200;
-        int newInt = 500;
-        long newLong = 400000;
-        float newFloat = 10.5f;
-        double newDouble = 300.2;
-        char newChar = 'g';
-        boolean newBoolean = true;
 
-        taskThree(2,3,4,5);
-        taskFour(2,5);
-        taskFive(0);
-        taskSix(-4);
-        taskSeven("Vasya");
-        taskEight(2000);
+        int[] myNums = {1, 1, 0, 0, 1, 0, 1, 1, 0, 0};
+        int[] myNums2 = new int[8];
+        myNums2 = new int[]{0, 3, 6, 9, 12, 15, 18, 21};
+        int[] myNums3 = new int[]{1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
+//        replaceOneAndZero(myNums);
+//        createArray(myNums2);
+//        incrementSmallNumbers(myNums3);
+        drawDiagonal();
     }
 
-    private static int taskThree (int a, int b, int c, int d){
-        int e = a * (b + (c / d));
-        return e;
+    private static void replaceOneAndZero(int[] myNums){
+        for(int i = 0; i < myNums.length; i++){
+           if ( myNums[i] == 1 ) {
+               myNums[i]=0;
+           }
+           else if (myNums[i] == 0){
+               myNums[i] = 1;
+           }
+        }
+        System.out.println(Arrays.toString(myNums));
     }
 
-    private static boolean taskFour (int a, int b){
-        int mySum = Integer.sum(a,b);
-        if( mySum > 10 && mySum < 20 ){
-            return true;
-        } else {
-            return false;
+    private static void createArray(int[] myNums2){
+        System.out.println(Arrays.toString((myNums2)));
+    }
+
+    private static void incrementSmallNumbers(int[] myNums3){
+        for (int i = 0; i < myNums3.length; i++){
+            if(myNums3[i] < 6){
+                myNums3[i] = myNums3[i] * 2;
+            }
         }
     }
 
-    private static void taskFive(int a){
-        if( a >= 0 ){
-            System.out.println("You've passed positive number :)");
-        } else {
-            System.out.println("You've passed negative number :(");
+    private static void drawDiagonal(){
+        int[][] myMultiDimensional = new int[5][5];
+        for(int i = 0; i < myMultiDimensional.length; i++){
+            for(int j = 0; j < myMultiDimensional.length; j++){
+                if(i == j){
+                    myMultiDimensional[i][j] = 1;
+                }
+                if((i + j) == (myMultiDimensional.length - 1)){
+                    myMultiDimensional[i][j]= 1;
+                }
+            }
         }
+        System.out.println(Arrays.deepToString((myMultiDimensional)));
     }
 
-    private static boolean taskSix (int a){
-        if(a < 0){
-            return true;
-        }
-        return false;
-    }
-
-    private static void taskSeven (String name){
-        System.out.println("Hello " + name);
-    }
-
-    private static void taskEight(int year){
-        boolean isLeap = false;
-        boolean cond1 = year % 4 == 0;
-        boolean cond2 = year % 100 == 0;
-        boolean cond3 = year % 400 == 0;
-        if( cond1 && cond2 && cond3 ){
-            isLeap = true;
-        }
-        if(isLeap){
-            System.out.println(year + " is a Leap Year");
-        } else {
-            System.out.println(year + " is not a Leap Year");
-        }
-    }
 }
 
