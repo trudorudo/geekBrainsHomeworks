@@ -1,71 +1,53 @@
 package geekbrains.homeworks.homework1;
 
+import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
-
-    public static void main(String[] args) {
-        byte newByte = 100;
-        short newShort = 200;
-        int newInt = 500;
-        long newLong = 400000;
-        float newFloat = 10.5f;
-        double newDouble = 300.2;
-        char newChar = 'g';
-        boolean newBoolean = true;
-
-        taskThree(2,3,4,5);
-        taskFour(2,5);
-        taskFive(0);
-        taskSix(-4);
-        taskSeven("Vasya");
-        taskEight(2000);
+    public static void main(String[] args){
+        guessTheNumber();
     }
-
-    private static int taskThree (int a, int b, int c, int d){
-        int e = a * (b + (c / d));
-        return e;
-    }
-
-    private static boolean taskFour (int a, int b){
-        int mySum = Integer.sum(a,b);
-        if( mySum > 10 && mySum < 20 ){
-            return true;
+    private static void tryAgainCheck(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Let's try again? Type Yes/No");
+        if (scanner.next().equalsIgnoreCase("no")) {
+            System.out.println("OK...See you later");
+            scanner.close();
         } else {
-            return false;
+            System.out.println("Yey, let's play");
+            guessTheNumber();
         }
     }
+    private static void guessTheNumber(){
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        int newRandom = random.nextInt(10);
+        int attempts = 0;
+        while( attempts < 3 ){
 
-    private static void taskFive(int a){
-        if( a >= 0 ){
-            System.out.println("You've passed positive number :)");
-        } else {
-            System.out.println("You've passed negative number :(");
-        }
-    }
+            System.out.println("Enter any number from 0 to 9");
 
-    private static boolean taskSix (int a){
-        if(a < 0){
-            return true;
+            if( scanner.hasNextInt() ){
+                String guessedNumber = scanner.nextLine();
+                int guessedNumInt = Integer.parseInt(guessedNumber);
+                boolean ifInsideRange = guessedNumInt >= 0 && guessedNumInt <= 9;
+                attempts++;
+                if(guessedNumInt == newRandom && ifInsideRange){
+                    System.out.println("You guessed it right, winner!");
+                    attempts = 0;
+                    tryAgainCheck();
+                } else if (guessedNumInt > newRandom && ifInsideRange){
+                            System.out.println("Less");
+                        } else {
+                            System.out.println("More");
+                        }
+            } else {
+                System.out.println("You can use only numeric symbols from 0 to 9.");
+                tryAgainCheck();
+            }
         }
-        return false;
-    }
-
-    private static void taskSeven (String name){
-        System.out.println("Hello " + name);
-    }
-
-    private static void taskEight(int year){
-        boolean isLeap = false;
-        boolean cond1 = year % 4 == 0;
-        boolean cond2 = year % 100 == 0;
-        boolean cond3 = year % 400 == 0;
-        if( cond1 && cond2 && cond3 ){
-            isLeap = true;
-        }
-        if(isLeap){
-            System.out.println(year + " is a Leap Year");
-        } else {
-            System.out.println(year + " is not a Leap Year");
-        }
+        System.out.println("Game is over");
+        tryAgainCheck();
     }
 }
 
