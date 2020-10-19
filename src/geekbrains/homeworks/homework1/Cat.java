@@ -1,5 +1,7 @@
 package geekbrains.homeworks.homework1;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
 public class Cat {
     private boolean isFull;
     protected String name;
@@ -9,15 +11,17 @@ public class Cat {
     public Cat(String name, int appetite) {
         this.name = name;
         this.appetite = appetite;
+        isFull = false;
     }
     public void eat(Plate plate){
-        plate.decreaseFood(appetite);
-    }
-    public void checkIfHungry(Plate plate){
-        if(plate.catAte){
-            System.out.println("I am full");
+        if(plate.hasEnoughFood(appetite) && !isFull){
+            plate.decreaseFood(appetite);
+            isFull=true;
+            System.out.println("Cat " + name + " ate");
+        } else if(isFull) {
+            System.out.println("Cat " + name + " is not hungry");
         } else {
-            System.out.println("I am hungry");
+            System.out.println("not enough food in the plate");
         }
     }
 }

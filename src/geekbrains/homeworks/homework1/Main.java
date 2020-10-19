@@ -6,13 +6,9 @@ import com.sun.codemodel.internal.JForEach;
 public class Main {
 
     public static void main(String[] args) {
-        Cat cat = new Cat("Vaska", 6);
         Plate plate = new Plate(10);
         plate.info();
-        cat.eat(plate);
-        cat.checkIfHungry(plate);
-        plate.info();
-        plate.addMoreFood(3);
+        plate.addMoreFood(30);
         plate.info();
 
         Cat[] catArray = new Cat[5];
@@ -21,8 +17,7 @@ public class Main {
         catArray[2] = new Cat("Bars", 20);
 
         for (Cat cats : catArray){
-            cat.eat(plate);
-            cat.checkIfHungry(plate);
+            cats.eat(plate);
         }
     }
 }
