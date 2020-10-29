@@ -1,38 +1,48 @@
 package geekbrains.homeworks.homework1;
 
 
-import com.sun.codemodel.internal.JForEach;
+import geekbrains.homeworks.homework1.creatures.Cat;
+import geekbrains.homeworks.homework1.creatures.Creature;
+import geekbrains.homeworks.homework1.creatures.Human;
+import geekbrains.homeworks.homework1.creatures.Robot;
+import geekbrains.homeworks.homework1.obstacles.Obstacle;
+import geekbrains.homeworks.homework1.obstacles.Treadmill;
+import geekbrains.homeworks.homework1.obstacles.Wall;
 
 public class Main {
 
-    public static void main(String[] args){
-        Employee employee1 = new Employee("James Petrov",
-                                        "Web Developer",
-                                          "james@gmail.com",
-                                    "90832342", 90000, 30);
-        employee1.getEmployeeInfo();
+    public static void main(String[] args) {
+        Creature[] creatures = {
+                new Cat("Barsik", 20, 3),
+                new Human("Peter", 40, 20),
+                new Robot("Robo", 90, 1)
+        };
 
+        Obstacle[] obstacles = new Obstacle[]{
+                new Treadmill(30),
+                new Wall(2),
+                new Wall(40),
+                new Treadmill(4)
+        };
 
-        Employee[] employeesArray = new Employee[5];
-        employeesArray[0] = new Employee("Ivanov Ivan",
-                                        "Engineer",
-                                        "ivivan@mailbox.com", "892312312", 30000, 30);
-        employeesArray[1] = new Employee("Sergey Sergeev",
-                                       "Manager",
-                                         "serg@mailbox.com", "892312312", 70000, 50);
-        employeesArray[2] = new Employee("Mike Kovalsky",
-                                        "Front End Developer",
-                                          "kovalsky@mailbox.com", "892312312", 30000, 20);
-        employeesArray[3] = new Employee("Ivanova Maria",
-                                        "Lead Engineer",
-                                          "ivivan@mailbox.com", "892312312", 30000, 60);
-        employeesArray[4] = new Employee("Ivanova Masha",
-                                        "Engineer",
-                                           "ivivamasha@mailbox.com", "892312312", 20000, 31);
-        for (Employee employee : employeesArray) {
-            employee.printOlderThen40();
+        for(Creature creature : creatures){
+            for(Obstacle obstacle : obstacles){
+                if(obstacle instanceof Wall){
+                    Wall wall = (Wall) obstacle;
+                    Creature.class.cast(creature).jumpWall(wall);
+                    if(creature.failed){
+                        break;
+                    }
+                }
+                if(obstacle instanceof Treadmill){
+                    Treadmill treadmill = (Treadmill) obstacle;
+                    Creature.class.cast(creature).runTreadmill(treadmill);
+                    if(creature.failed){
+                        break;
+                    }
+                }
+            }
         }
-    }
-
+   }
 }
 
