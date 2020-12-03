@@ -70,5 +70,7 @@ public class Network {
                System.out.println("Connection is lost");
            }
         });
+        thread.setDaemon(true);
+        thread.start();
     }
 }
